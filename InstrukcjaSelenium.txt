@@ -1,0 +1,5 @@
+java -Dwebdriver.chrome.driver=C:\Users\Student\chromedriver.exe -jar selenium-server-standalone-2.52.0.jar -port 4440
+1.pobranie chrome driver odpalenie z konsoli
+2.pobranie selenium 2.52.0.jar 
+3. strona selenium easy
+przeczytac czym jest xpath
