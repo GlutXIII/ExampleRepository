@@ -46,7 +46,6 @@ THREEx.ProceduralCity	= function(){
         if ((x < -25 || z < 5 )&& (rand < 0.5 )) {
             buildingMesh.position.x = 100000;
             buildingMesh.position.z = 0;
-            console.log('wszedlem ' + rand );
         } else {
         buildingMesh.position.x = x * 40; // Math.floor( Math.random() * 200 - 100 ) * 10;
         buildingMesh.position.z = (z - 30) * 40; //Math.floor( Math.random() * 200 - 100 ) * 10;
