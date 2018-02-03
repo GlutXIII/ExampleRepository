@@ -43,9 +43,9 @@
         </JDBCDataSource>
         <hashTree/>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Konfiguracja pliku CSV dla zapytania" enabled="true">
-          <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetter_BazaDanych\zapytania.csv</stringProp>
+          <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetterBazyDanych\zapytania.csv</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
-          <stringProp name="variableNames">name,name2</stringProp>
+          <stringProp name="variableNames">typ1,typ2</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <stringProp name="delimiter">,</stringProp>
           <boolProp name="quotedData">false</boolProp>
@@ -55,9 +55,9 @@
         </CSVDataSet>
         <hashTree/>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Konfiguracja pliku CSV wstawienie do bazy" enabled="true">
-          <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetter_BazaDanych\wstawianieDoBazyDanych.csv</stringProp>
+          <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetterBazyDanych\wstawianieDoBazyDanych.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="variableNames">nazwa,typ,ulica,numer,telefon,www</stringProp>
+          <stringProp name="variableNames">id,nazwa,typ,opis,ilosc,rokpowstania</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <stringProp name="delimiter">,</stringProp>
           <boolProp name="quotedData">false</boolProp>
@@ -67,9 +67,9 @@
         </CSVDataSet>
         <hashTree/>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Konfiguracja pliku CSV aktualizacja danych" enabled="true">
-          <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetter_BazaDanych\aktualizowanieDancyhWBazieDanych.csv</stringProp>
+          <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetterBazyDanych\aktualizowanieDancyhWBazieDanych.csv</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="variableNames">mzmiana,hotel,mstare</stringProp>
+          <stringProp name="variableNames">nowytyp,nazwafilmu,typfilmu,ilosc</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <stringProp name="delimiter">,</stringProp>
           <boolProp name="quotedData">false</boolProp>
@@ -80,10 +80,11 @@
         <hashTree/>
         <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Zmienne zdefiniowane przez użytkownika" enabled="true">
           <collectionProp name="Arguments.arguments">
-            <elementProp name="X" elementType="Argument">
-              <stringProp name="Argument.name">X</stringProp>
-              <stringProp name="Argument.value">200</stringProp>
+            <elementProp name="duration" elementType="Argument">
+              <stringProp name="Argument.name">duration</stringProp>
+              <stringProp name="Argument.value">400</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.desc">Długość trwania</stringProp>
             </elementProp>
           </collectionProp>
         </Arguments>
@@ -151,7 +152,7 @@ if(vars.getObject(&quot;Request_1&quot;).size() != 0) {
                 <assertionsResultsToSave>0</assertionsResultsToSave>
               </value>
             </objProp>
-            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetter_BazaDanych\CzyPolaczyloZBazaDanych</stringProp>
+            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetterBazyDanych\CzyPolaczyloZBazaDanych</stringProp>
           </ResultCollector>
           <hashTree/>
         </hashTree>
@@ -160,7 +161,7 @@ if(vars.getObject(&quot;Request_1&quot;).size() != 0) {
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">select *
 from test.filmy
-where typ=&apos;${name}&apos; or typ=&apos;${name2}&apos;;</stringProp>
+where typ=&apos;${typ1}&apos; or typ=&apos;${typ2}&apos;;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="variableNames"></stringProp>
@@ -170,7 +171,7 @@ where typ=&apos;${name}&apos; or typ=&apos;${name2}&apos;;</stringProp>
         </JDBCSampler>
         <hashTree>
           <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-            <stringProp name="DurationAssertion.duration">${X}</stringProp>
+            <stringProp name="DurationAssertion.duration">${duration}</stringProp>
           </DurationAssertion>
           <hashTree/>
           <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
@@ -214,7 +215,7 @@ else{
                 <assertionsResultsToSave>0</assertionsResultsToSave>
               </value>
             </objProp>
-            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetter_BazaDanych\alert</stringProp>
+            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetterBazyDanych\alert</stringProp>
           </ResultCollector>
           <hashTree/>
         </hashTree>
@@ -232,7 +233,7 @@ from test.filmy;</stringProp>
         </JDBCSampler>
         <hashTree>
           <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-            <stringProp name="DurationAssertion.duration">${X}</stringProp>
+            <stringProp name="DurationAssertion.duration">${duration}</stringProp>
           </DurationAssertion>
           <hashTree/>
           <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
@@ -275,15 +276,15 @@ else{
                 <assertionsResultsToSave>0</assertionsResultsToSave>
               </value>
             </objProp>
-            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetter_BazaDanych\alert</stringProp>
+            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetterBazyDanych\alert</stringProp>
           </ResultCollector>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request Insert " enabled="true">
           <stringProp name="dataSource">TEST</stringProp>
           <stringProp name="queryType">Update Statement</stringProp>
-          <stringProp name="query">insert into test.filmy (idfilmy,nazwa,typ)
-values(&apos;${numer}&apos;,&apos;${nazwa}&apos;,&apos;${typ}&apos;);</stringProp>
+          <stringProp name="query">insert into test.filmy (id,nazwa,typ,opis,ilosc,rok_powstania)
+values(&apos;${id}&apos;,&apos;${nazwa}&apos;,&apos;${typ}&apos;,&apos;${opis}&apos;,&apos;${ilosc}&apos;,&apos;${rokpowstania}&apos;);</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="variableNames"></stringProp>
@@ -293,7 +294,7 @@ values(&apos;${numer}&apos;,&apos;${nazwa}&apos;,&apos;${typ}&apos;);</stringPro
         </JDBCSampler>
         <hashTree>
           <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-            <stringProp name="DurationAssertion.duration">${X}</stringProp>
+            <stringProp name="DurationAssertion.duration">${duration}</stringProp>
           </DurationAssertion>
           <hashTree/>
           <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
@@ -336,15 +337,15 @@ else{
                 <assertionsResultsToSave>0</assertionsResultsToSave>
               </value>
             </objProp>
-            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetter_BazaDanych\alert</stringProp>
+            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetterBazyDanych\alert</stringProp>
           </ResultCollector>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request Update " enabled="true">
           <stringProp name="dataSource">TEST</stringProp>
           <stringProp name="query">update test.filmy
-set typ=&apos;${mzmiana}&apos;
-where nazwa=&apos;${hotel}&apos; and typ=&apos;${mstare}&apos;;</stringProp>
+set typ=&apos;${nowytyp}&apos;
+where nazwa=&apos;${nazwafilmu}&apos; and typ=&apos;${typfilmu}&apos; and ilosc=&apos;${ilosc}&apos;;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="queryTimeout"></stringProp>
@@ -355,7 +356,7 @@ where nazwa=&apos;${hotel}&apos; and typ=&apos;${mstare}&apos;;</stringProp>
         </JDBCSampler>
         <hashTree>
           <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-            <stringProp name="DurationAssertion.duration">${X}</stringProp>
+            <stringProp name="DurationAssertion.duration">${duration}</stringProp>
           </DurationAssertion>
           <hashTree/>
           <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
@@ -399,7 +400,7 @@ else{
                 <assertionsResultsToSave>0</assertionsResultsToSave>
               </value>
             </objProp>
-            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetter_BazaDanych\alert</stringProp>
+            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetterBazyDanych\alert</stringProp>
           </ResultCollector>
           <hashTree/>
         </hashTree>
@@ -417,7 +418,7 @@ from test.filmy;</stringProp>
         </JDBCSampler>
         <hashTree>
           <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
-            <stringProp name="DurationAssertion.duration">${X}</stringProp>
+            <stringProp name="DurationAssertion.duration">${duration}</stringProp>
           </DurationAssertion>
           <hashTree/>
           <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell Assertion" enabled="true">
@@ -461,7 +462,60 @@ else{
                 <assertionsResultsToSave>0</assertionsResultsToSave>
               </value>
             </objProp>
-            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetter_BazaDanych\alert</stringProp>
+            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetterBazyDanych\alert</stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request CleanUp" enabled="true">
+          <stringProp name="dataSource">TEST</stringProp>
+          <stringProp name="queryType">Callable Statement</stringProp>
+          <stringProp name="query">delete from test.filmy where id=&apos;4&apos;;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Duration Assertion" enabled="true">
+            <stringProp name="DurationAssertion.duration">${duration}</stringProp>
+          </DurationAssertion>
+          <hashTree/>
+          <ResultCollector guiclass="SimpleDataWriter" testclass="ResultCollector" testname="Simple Data Writer" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <sentBytes>true</sentBytes>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+                <connectTime>true</connectTime>
+              </value>
+            </objProp>
+            <stringProp name="filename">C:\Users\Piotr\Desktop\TestowanieProjekty\JMetterBazyDanych\alert</stringProp>
           </ResultCollector>
           <hashTree/>
         </hashTree>
