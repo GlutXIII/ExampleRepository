@@ -1,0 +1,8 @@
+test plan 
+1 zaloguj sie na strone ta i ta i czy dziala ta strona 
+2jezeli stoi to zrob cos
+3wyloguj z aplikacji
+
+jmeterowy test
+czy stoi (no action)
+zalogowanie

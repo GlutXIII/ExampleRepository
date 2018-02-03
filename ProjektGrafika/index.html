@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>#17 Three.js - ColladaLoader</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <script src="js/howler.js"></script>
+    <script type="text/javascript">
+        var kamera = "A";
+        var delta = 0.01;
+        var deltaTmp = 0.01;
+
+        function kameraA() {
+            kamera = "A";
+        }
+
+        function kameraB() {
+            kamera = "B";
+        }
+
+        function kameraStartStop() {
+            if (delta == 0.0) {
+                delta = deltaTmp;
+            }
+            else {
+                delta = 0.0;
+            }
+        }
+
+        function kameraPrawoLewo() {
+            delta = -delta;
+            deltaTmp = -deltaTmp;
+        }
+
+        var sound = new Howl({
+            urls: ['sound/music.mp3'],
+            autoplay: true,
+            loop: true,
+            volume: 0.6,
+            onend: function () {
+            }
+        });
+        var sound = new Howl({
+            urls: ['sound/music1.mp3'],
+            autoplay: true,
+            loop: true,
+            volume: 0.4,
+            onend: function () {
+            }
+        });
+    </script>
+</head>
+
+<body>
+<div>
+    &nbsp &nbsp &nbsp &nbsp
+    <button onclick="kameraA();" style="width:100px; height:32px;">Panorama</button>
+    <button onclick="kameraB();" style="width:100px; height:32px;">Samolot</button>
+    <button onclick="kameraStartStop();" style="width:180px; height:32px;">Start/stop kamery</button>
+    <button onclick="kameraPrawoLewo();" style="width:180px; height:32px;">Zmien obrot</button>
+    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+    <button onclick="sound.mute();" style="width:64px; height:32px;"><img src="img/mute.png"/></button>
+    <button onclick="sound.unmute();" style="width:64px; height:32px;"><img src="img/unmute.png"/></button>
+    <br/>
+</div>
+
+<script src="js/threex.proceduralcity.js"></script>
+<script src="js/threeMarekBad.js"></script>
+<script src="js/ColladaLoader.js"></script>
+<script src="js/Detector.js"></script>
+<script src="js/stats.min.js"></script>
+
+
+<script>
+
+    if (!Detector.webgl) Detector.addGetWebGLMessage();
+
+    var ruchKamery = 0;
+    var container;
+    var flaga = 0;
+    var camera, scene, renderer;
+    var dae;
+    var loader = new THREE.ColladaLoader();
+    var url = 'dae/samolot4.dae';
+
+    loader.options.convertUpAxis = true;
+    loader.load(url, function (collada) {
+        dae = collada.scene;
+        dae.traverse(function (child) {
+            if (child instanceof THREE.SkinnedMesh) {
+                var animation = new THREE.Animation(child, child.geometry.animation);
+                animation.play();
+            }
+        });
+        dae.scale.x = dae.scale.y = dae.scale.z = 20; //skalowanie obiektu
+        dae.position.y -= 460;
+        dae.position.x -= 12000;
+        dae.position.z += 512;
+        dae.updateMatrix();
+        dae.traverse(function (child) {
+            child.castShadow = true;
+            child.receiveShadow = false;
+        });
+        init();
+        animate();
+    });
+
+    function init() {
+
+        container = document.createElement('div');
+        document.body.appendChild(container);
+
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 40000);
+        camera.position.set(Math.pow(2, 13), 1024, 0);
+
+        scene = new THREE.Scene();
+        scene.add(dae);
+
+        sleep(1000);
+
+        // =============================SWIATLA======================================== //
+
+        var light1 = new THREE.DirectionalLight(0xffffff);
+        light1.castShadow = true;
+        light1.position.set(-2000, 2000, -5000);
+        light1.shadowCameraNear = 1;
+        light1.shadowCameraFar = 16000;
+        light1.shadowCameraRight = 10000;
+        light1.shadowCameraLeft = -10000;
+        light1.shadowCameraTop = 10000;
+        light1.shadowCameraBottom = -10000;
+
+        scene.add(light1);
+        scene.add(new THREE.AmbientLight(0xcccccc));
+
+        renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setSize(window.innerWidth - 16, window.innerHeight - 64);
+        renderer.shadowMapEnabled = true;
+        renderer.shadowMapType = THREE.PCFSoftShadowMap;
+        container.appendChild(renderer.domElement);
+        window.addEventListener('resize', onWindowResize, false);
+
+        scene.fog = new THREE.Fog(0xD0E6CF, -2 * 1024, 64 * 1024);
+
+
+        //=============================ULICE + TRAWA====================================//
+
+        var texture = THREE.ImageUtils.loadTexture('img/grass.jpg');
+        texture.repeat.set(128, 128);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.anisotropy = 16;
+
+        var planeMaterial = new THREE.MeshBasicMaterial({map: texture});
+        var planeGeometry = new THREE.PlaneGeometry(Math.pow(2, 15), Math.pow(2, 15));
+
+
+        var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.rotation.x = -Math.PI / 2;
+        plane.position.y -= 512;
+        plane.position.z = 0;
+
+        plane.castShadow = false;
+        plane.receiveShadow = true;
+
+        scene.add(plane);
+
+        var texture_1 = THREE.ImageUtils.loadTexture('img/road.jpg');
+        for (var i = 0; i < 60; i++) {
+            texture_1.repeat.set(1, 400);
+            texture_1.wrapS = THREE.RepeatWrapping;
+            texture_1.wrapT = THREE.RepeatWrapping;
+            texture_1.anisotropy = 16;
+
+            var planeMaterial_1 = new THREE.MeshBasicMaterial({map: texture_1});
+            var planeGeometry_1 = new THREE.PlaneGeometry(32, 12800);
+            var plane_1 = new THREE.Mesh(planeGeometry_1, planeMaterial_1);
+            plane_1.rotation.x = -Math.PI / 2;
+
+            plane_1.position.y -= 510;
+            plane_1.position.x = ((i - 30) * 240) + 120;
+
+            plane_1.castShadow = false;
+            plane_1.receiveShadow = true;
+
+            scene.add(plane_1);
+        }
+        var texture_2 = THREE.ImageUtils.loadTexture('img/road.jpg');
+        for (var i = 0; i < 60; i++) {
+            texture_2.repeat.set(400, 1);
+            texture_2.wrapS = THREE.RepeatWrapping;
+            texture_2.wrapT = THREE.RepeatWrapping;
+            texture_2.anisotropy = 16;
+
+            var planeMaterial_2 = new THREE.MeshBasicMaterial({map: texture_1});
+            var planeGeometry_2 = new THREE.PlaneGeometry(12800, 32);
+            var plane_2 = new THREE.Mesh(planeGeometry_1, planeMaterial_1);
+            plane_2.rotation.x = -Math.PI / 2;
+            plane_2.rotation.z = Math.PI / 2;
+
+            plane_2.position.y -= 510;
+            plane_2.position.z = ((i - 30) * 240) + 120;
+
+            plane_2.castShadow = false;
+            plane_2.receiveShadow = true;
+
+            scene.add(plane_2);
+        }
+        //============================WCZYTANIE MIASTA ZE SKRYPTU========================================= //
+
+        var city = new THREEx.ProceduralCity();
+        city.castShadow = true;
+        city.receiveShadow = true;
+        city.scale.x = city.scale.y = city.scale.z = 6;
+        city.position.y -= 512;
+        scene.add(city);
+
+        //============================SKYBOX==========================================//
+
+        var textures = ['img/skybox/north.png',
+            'img/skybox/south.png',
+            'img/skybox/top.png',
+            'img/skybox/bottom.png',
+            'img/skybox/west.png',
+            'img/skybox/east.png'];
+
+        var materials = [];
+
+        for (var i = 0; i < textures.length; i++) {
+            var texture = THREE.ImageUtils.loadTexture(textures[i]);
+            texture.anisotropy = renderer.getMaxAnisotropy();
+            materials.push(new THREE.MeshBasicMaterial({map: texture, side: THREE.BackSide}));  //Mateial jakim pokryjemy sciany
+        }																						//sciany beda teksturowane od srodka
+        var geometry = new THREE.CubeGeometry(32 * 1024, 32 * 1024, 32 * 1024); // cube (skybox)
+        var skyBox = new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials)); //Utworzenie siatki trojkatow tworzacej skybox
+        skyBox.position.y -= 1024;
+        scene.add(skyBox);
+
+        // sleep(3000);
+    }
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds) {
+                break;
+            }
+        }
+    }
+
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth - 16, window.innerHeight - 64);
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        render();
+    }
+
+    var a = new THREE.Vector3(1, 2, 0);
+    var clock = new THREE.Clock();
+    var kat = 0;
+
+    function render() {
+        kat += delta;
+
+
+        if (kamera === "A") {
+            camera.position.x = Math.cos(kat) * Math.pow(2, 13);
+            camera.position.y = 1024;
+            camera.position.z = Math.sin(kat) * Math.pow(2, 13);
+
+            camera.lookAt(scene.position);
+        }
+        else {
+            ruchKamery += 1.5;
+            camera.position.x = dae.position.x - 1000 + ruchKamery;
+            camera.position.y = dae.position.y + 300;
+            camera.position.z = dae.position.z;
+
+            /*     camera.position.x = 0;
+                 camera.position.y = 4;
+                 camera.position.z = 0;
+     */
+            a.x = Math.cos(kat) * 8;
+            a.y = 2;
+            a.z = Math.sin(kat) * 8;
+
+            camera.lookAt(a);
+        }
+
+        if (flaga === 0) {
+            dae.position.y += 4;
+            if (dae.position.y > 3000) {
+                flaga = 1;
+            }
+        }
+        if (flaga === 1) {
+            dae.position.y -= 4;
+            if (dae.position.y <= -416) {
+                dae.position.y = -416;
+                flaga = 2;
+            }
+        }
+        if (dae.position.x > Math.pow(2, 14)) {
+            ruchKamery = 0;
+        } else {
+            dae.position.x += 16;
+        }
+
+        renderer.render(scene, camera);
+    }
+</script>
+</body>
+</html>

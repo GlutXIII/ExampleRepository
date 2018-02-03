@@ -1,0 +1,6 @@
+math.../~arkp/testowanie
+
+skonfigurowac jmetera na wysylanie informacji na tematy plikow pobieranych podczas response z serwera do jmetera
+zdobyc informacje o plikach pobieranch ze strony, index.txt main,.css a,jpk itd
+
+template na record events
