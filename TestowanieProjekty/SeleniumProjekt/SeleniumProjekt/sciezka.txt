@@ -1,0 +1,1 @@
+java -Dwebdriver.firefox.profile=C:\Users\Piotr\Desktop\TestowanieProjekty\Selenium\C:\Users\Piotr\Desktop\TestowanieProjekty\SeleniumProjekt\SeleniumProjekt\chromedriver.exe -jar selenium-server-standalone-3.8.1.jar -port 4440
