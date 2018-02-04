@@ -1,7 +1,2 @@
 timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,Latency,IdleTime,Connect
-1517704517135,916,WP poczta,200,OK,Thread Group 1-1,text,true,SMOKE_TEST_PASSED,667178,3779,6,6,244,0,199
-1517704517766,927,WP poczta,200,OK,Thread Group 1-2,text,true,SMOKE_TEST_PASSED,667176,3789,5,5,135,0,97
-1517704517945,980,WP poczta,200,OK,Thread Group 1-6,text,true,SMOKE_TEST_PASSED,667143,3801,4,4,172,0,132
-1517704517932,1013,WP poczta,200,OK,Thread Group 1-4,text,true,SMOKE_TEST_PASSED,667160,3755,3,3,172,0,128
-1517704519029,826,WP poczta,200,OK,Thread Group 1-5,text,true,SMOKE_TEST_PASSED,667146,3791,2,2,129,0,100
-1517704519912,835,WP poczta,200,OK,Thread Group 1-3,text,true,SMOKE_TEST_PASSED,667137,3767,1,1,130,0,101
+1517762170355,986,WP poczta,200,OK,Thread Group 1-1,text,true,SMOKE_TEST_PASSED,667176,3829,1,1,184,0,156
